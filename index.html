@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Modal Otomatis</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #1a202c; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 3px solid #4a90e2; padding-bottom: 10px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #4a5568; }
+        
+        /* Input Styling */
+        input[type="text"] { 
+            width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #cbd5e0; 
+            border-radius: 10px; box-sizing: border-box; font-size: 20px; font-weight: bold;
+            color: #2d3748; outline: none; transition: all 0.2s;
+        }
+        input[type="text"]:focus { border-color: #4a90e2; box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); }
+
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid #edf2f7; }
+        .label-group { display: flex; flex-direction: column; }
+        .label-name { font-weight: 600; color: #4a5568; font-size: 0.95em; }
+        .percent { font-size: 0.85em; color: #4a90e2; font-weight: 800; }
+        .amount { font-family: 'Monaco', 'Consolas', monospace; font-weight: bold; color: #2d3748; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Pembagian Modal</h2>
+    
+    <label for="modalInput">Total Modal (Rp):</label>
+    <input type="text" id="modalInput" placeholder="Masukkan angka..." onkeyup="formatDanHitung(this)">
+
+    <div id="results">
+        <div class="result-item">
+            <div class="label-group">
+                <span class="label-name">Uang Tunai (Laci)</span>
+                <span class="percent">35%</span>
+            </div>
+            <span class="amount" id="cash">Rp 0</span>
+        </div>
+        <div class="result-item">
+            <div class="label-group">
+                <span class="label-name">PPOB Utama</span>
+                <span class="percent">20%</span>
+            </div>
+            <span class="amount" id="ppobUtama">Rp 0</span>
+        </div>
+        <div class="result-item">
+            <div class="label-group">
+                <span class="label-name">Mobile Banking</span>
+                <span class="percent">43%</span>
+            </div>
+            <span class="amount" id="mBanking">Rp 0</span>
+        </div>
+        <div class="result-item">
+            <div class="label-group">
+                <span class="label-name">PPOB Darurat</span>
+                <span class="percent">2%</span>
+            </div>
+            <span class="amount" id="ppobDarurat">Rp 0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fungsi untuk memformat angka menjadi format ribuan (titik)
+    function formatRupiah(angka) {
+        return new Intl.NumberFormat('id-ID').format(angka);
+    }
+
+    function formatDanHitung(input) {
+        // 1. Ambil nilai asli (hilangkan semua titik)
+        let val = input.value.replace(/\./g, "");
+        
+        // 2. Pastikan hanya angka
+        if (isNaN(val) || val === "") {
+            val = 0;
+            input.value = "";
+        } else {
+            // 3. Masukkan kembali ke input dengan format titik
+            input.value = formatRupiah(val);
+        }
+
+        // 4. Hitung pembagian modal
+        const modal = parseFloat(val);
+        if (modal > 0) {
+            document.getElementById('cash').innerText = "Rp " + formatRupiah(Math.round(modal * 0.35));
+            document.getElementById('ppobUtama').innerText = "Rp " + formatRupiah(Math.round(modal * 0.20));
+            document.getElementById('mBanking').innerText = "Rp " + formatRupiah(Math.round(modal * 0.43));
+            document.getElementById('ppobDarurat').innerText = "Rp " + formatRupiah(Math.round(modal * 0.02));
+        } else {
+            const nol = "Rp 0";
+            document.getElementById('cash').innerText = nol;
+            document.getElementById('ppobUtama').innerText = nol;
+            document.getElementById('mBanking').innerText = nol;
+            document.getElementById('ppobDarurat').innerText = nol;
+        }
+    }
+</script>
+
+</body>
+</html>
