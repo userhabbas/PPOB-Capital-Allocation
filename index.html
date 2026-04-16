@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Modal Otomatis</title>
+    <title>Kalkulator Modal Bisnis Kembar Ponsel</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
         .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
@@ -36,8 +36,8 @@
     <div id="results">
         <div class="result-item">
             <div class="label-group">
-                <span class="label-name">Uang Tunai (Laci)</span>
-                <span class="percent">35%</span>
+                <span class="label-name">Uang Tunai </span>
+                <span class="percent">23%</span>
             </div>
             <span class="amount" id="cash">Rp 0</span>
         </div>
@@ -51,7 +51,7 @@
         <div class="result-item">
             <div class="label-group">
                 <span class="label-name">Mobile Banking</span>
-                <span class="percent">43%</span>
+                <span class="percent">55%</span>
             </div>
             <span class="amount" id="mBanking">Rp 0</span>
         </div>
@@ -87,9 +87,9 @@
         // 4. Hitung pembagian modal
         const modal = parseFloat(val);
         if (modal > 0) {
-            document.getElementById('cash').innerText = "Rp " + formatRupiah(Math.round(modal * 0.35));
+            document.getElementById('cash').innerText = "Rp " + formatRupiah(Math.round(modal * 0.23));
             document.getElementById('ppobUtama').innerText = "Rp " + formatRupiah(Math.round(modal * 0.20));
-            document.getElementById('mBanking').innerText = "Rp " + formatRupiah(Math.round(modal * 0.43));
+            document.getElementById('mBanking').innerText = "Rp " + formatRupiah(Math.round(modal * 0.55));
             document.getElementById('ppobDarurat').innerText = "Rp " + formatRupiah(Math.round(modal * 0.02));
         } else {
             const nol = "Rp 0";
